@@ -31,4 +31,34 @@ class AuthController extends Controller
         ];
         return response($res, 201);
     }
+
+    public function sign_in (Request $request) {
+        $data = $request->validate([
+            'email' => 'required|string|unique:users,email|min:6|max:100',
+            'password' => 'required|string|confirmed|min:6|max:20',
+        ]);
+
+        $user = User::where('email', $data['email'])->first();
+
+        if (!$user || !Hash::check($data['password'], $user->password)) {
+            return response([
+                'msg' => 'incorrect username or password'
+            ], 401);
+        }
+
+        $token = $user->createToken('apiToken')->plainTextToken;
+
+        $res = [
+            'user' => $user,
+            'token' => $token
+        ];
+        return response($res, 201);
+    }
+
+    public function sign_out (Request $request) {
+        $request->user()->currentAccessToken()->delete();
+        return [
+            'message' => 'user logged out'
+        ];
+    }
 }

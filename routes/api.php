@@ -29,4 +29,6 @@ Route::group([
     'prefix' => '/auth'
 ], function () {
     Route::post('/signup', [AuthController::class, 'sign_up']);
+    Route::post('/signin', [AuthController::class, 'sign_in']);
+    Route::post('/signout', [AuthController::class, 'sign_out']);
 });
