@@ -61,4 +61,8 @@ class AuthController extends Controller
             'message' => 'user logged out'
         ];
     }
+
+    public function user_info (Request $request) {
+        return $request->user();
+    }
 }
