@@ -63,6 +63,6 @@ class AuthController extends Controller
     }
 
     public function user_info (Request $request) {
-        return $request->user();
+        return response($request->user());
     }
 }
