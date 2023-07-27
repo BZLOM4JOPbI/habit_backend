@@ -30,6 +30,6 @@ Route::group([
 ], function () {
     Route::post('/signup', [AuthController::class, 'sign_up']);
     Route::post('/signin', [AuthController::class, 'sign_in']);
-    Route::post('/signout', [AuthController::class, 'sign_out']);
+    Route::post('/signout', [AuthController::class, 'sign_out'])->middleware(['auth:sanctum']);
     Route::get('/info', [AuthController::class, 'user_info'])->middleware(['auth:sanctum']);
 });
